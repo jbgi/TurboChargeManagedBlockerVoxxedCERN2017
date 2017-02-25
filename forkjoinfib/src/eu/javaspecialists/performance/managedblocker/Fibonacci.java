@@ -7,10 +7,10 @@ import java.util.concurrent.*;
 
 public class Fibonacci {
     public BigInteger f(int n) {
-        Map<Integer, ForkJoinTask<BigInteger>> cache = new ConcurrentHashMap<>();
+        Map<Integer, ForkJoinTask<BigInteger>> cache = new ConcurrentHashMap<>(3 * (1 + (int) Math.log(n + 1)));
         cache.put(0, ForkJoinTask.adapt(() ->BigInteger.ZERO).fork());
         cache.put(1, ForkJoinTask.adapt(() -> BigInteger.ONE).fork());
-        return f(n, cache);
+        return ForkJoinTask.adapt(() -> f(n, cache)).fork().join();
     }
 
     public BigInteger f(int n, Map<Integer, ForkJoinTask<BigInteger>> cache) {
