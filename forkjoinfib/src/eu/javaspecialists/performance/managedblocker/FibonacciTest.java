@@ -53,12 +53,11 @@ public class FibonacciTest {
 
     @Test
     public void test100_000_000() {
-        System.out.println("Before test100_000_000(): " + ForkJoinPool.commonPool());
+        System.out.println("Before test100_000_000(): " + Fibonacci.pool);
         long time = System.currentTimeMillis();
-        Fibonacci fib = new Fibonacci();
-        assertEquals(34712631, fib.f(100_000_000).bitCount());
+        assertEquals(34712631, Fibonacci.f(100_000_000).bitCount());
         time = System.currentTimeMillis() - time;
-        System.out.println("After test100_000_000(): " + ForkJoinPool.commonPool());
+        System.out.println("After test100_000_000(): " + Fibonacci.pool);
         System.out.println("test100_000_000() time = " + time);
     }
 
